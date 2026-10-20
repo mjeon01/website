@@ -1,0 +1,198 @@
+[
+  {
+    "name": "hero-lanterns",
+    "source": "01_첫화면_후보/대형등_야간전시.jpg",
+    "width": 2200,
+    "height": 1650,
+    "smallWidth": 720
+  },
+  {
+    "name": "bridge-lantern",
+    "source": "01_첫화면_후보/월월등_월정교_야경.jpg",
+    "width": 1050,
+    "height": 1400,
+    "smallWidth": 675
+  },
+  {
+    "name": "festival",
+    "source": "01_첫화면_후보/신라문화제_청년거리_야경.jpg",
+    "width": 1400,
+    "height": 1050,
+    "smallWidth": 720
+  },
+  {
+    "name": "pagoda-night",
+    "source": "01_첫화면_후보/신라문화제_목탑등_야경.jpg",
+    "width": 647,
+    "height": 1400,
+    "smallWidth": 416
+  },
+  {
+    "name": "planning",
+    "source": "02_기획/행사장_공간조성_항공.jpg",
+    "width": 1400,
+    "height": 788,
+    "smallWidth": 720
+  },
+  {
+    "name": "meeting",
+    "source": "02_기획/탱화앞_기획회의.jpg",
+    "width": 1050,
+    "height": 1400,
+    "smallWidth": 675
+  },
+  {
+    "name": "craft",
+    "source": "08_사람_작업모습/점등_채색_마감작업.jpg",
+    "width": 1050,
+    "height": 1400,
+    "smallWidth": 675
+  },
+  {
+    "name": "artisan",
+    "source": "08_사람_작업모습/기둥_단청_채색작업.jpg",
+    "width": 1400,
+    "height": 1400,
+    "smallWidth": 720
+  },
+  {
+    "name": "studio",
+    "source": "08_사람_작업모습/집등_제작모습.jpg",
+    "width": 1050,
+    "height": 1400,
+    "smallWidth": 675
+  },
+  {
+    "name": "education",
+    "source": "06_운영_행사·체험/월월등_가족체험.jpg",
+    "width": 1400,
+    "height": 1400,
+    "smallWidth": 720
+  },
+  {
+    "name": "goun-workshop",
+    "source": "06_운영_행사·체험/고운사_불꽃등_채색체험.jpg",
+    "width": 1400,
+    "height": 1400,
+    "smallWidth": 720
+  },
+  {
+    "name": "goun-frame",
+    "source": "06_운영_행사·체험/고운사_전통등_골조체험.jpg",
+    "width": 1400,
+    "height": 1400,
+    "smallWidth": 720
+  },
+  {
+    "name": "shilla-lanterns",
+    "source": "03_제작_조형물·전통등/신라문화제_등전시.jpg",
+    "width": 1400,
+    "height": 1050,
+    "smallWidth": 720
+  },
+  {
+    "name": "interactive-art",
+    "source": "03_제작_조형물·전통등/인터랙티브_조형물.jpg",
+    "width": 1400,
+    "height": 647,
+    "smallWidth": 720
+  },
+  {
+    "name": "lantern-tour",
+    "source": "06_운영_행사·체험/월정교_등롱투어.jpg",
+    "width": 1050,
+    "height": 1400,
+    "smallWidth": 675
+  },
+  {
+    "name": "rental",
+    "source": "06_운영_행사·체험/렌탈_단청부스.jpg",
+    "width": 1400,
+    "height": 1050,
+    "smallWidth": 720
+  },
+  {
+    "name": "lanterns",
+    "source": "03_제작_조형물·전통등/형산강_연등축제_용등.jpg",
+    "width": 1050,
+    "height": 1400,
+    "smallWidth": 675
+  },
+  {
+    "name": "shop-lantern",
+    "source": "05_제작_제품_빛조각·소품/월월등_제품컷.png",
+    "width": 1400,
+    "height": 1158,
+    "smallWidth": 720
+  },
+  {
+    "name": "moon-jar",
+    "source": "05_제작_제품_빛조각·소품/빛조각_달항아리_연출.png",
+    "width": 1400,
+    "height": 933,
+    "smallWidth": 720
+  },
+  {
+    "name": "celadon",
+    "source": "05_제작_제품_빛조각·소품/빛조각_청자_연출.png",
+    "width": 933,
+    "height": 1400,
+    "smallWidth": 600
+  },
+  {
+    "name": "lantern-kit",
+    "source": "05_제작_제품_빛조각·소품/월월등_키트구성.jpg",
+    "width": 1400,
+    "height": 933,
+    "smallWidth": 720
+  },
+  {
+    "name": "pagoda-kit",
+    "source": "05_제작_제품_빛조각·소품/목탑등키트_조립부품.jpeg",
+    "width": 1050,
+    "height": 1400,
+    "smallWidth": 675
+  },
+  {
+    "name": "brick-collection",
+    "source": "04_제작_제품_브릭/브릭_전체세트.png",
+    "width": 1400,
+    "height": 1050,
+    "smallWidth": 720
+  },
+  {
+    "name": "brick-seokga",
+    "source": "04_제작_제품_브릭/KY01_석가탑.png",
+    "width": 787,
+    "height": 1400,
+    "smallWidth": 506
+  },
+  {
+    "name": "brick-dabo",
+    "source": "04_제작_제품_브릭/KY04_다보탑.png",
+    "width": 787,
+    "height": 1400,
+    "smallWidth": 506
+  },
+  {
+    "name": "brick-crown",
+    "source": "04_제작_제품_브릭/KY02_금관.png",
+    "width": 960,
+    "height": 1280,
+    "smallWidth": 675
+  },
+  {
+    "name": "brick-tile",
+    "source": "04_제작_제품_브릭/KY03_수막새.png",
+    "width": 787,
+    "height": 1400,
+    "smallWidth": 506
+  },
+  {
+    "name": "brick-observatory",
+    "source": "04_제작_제품_브릭/KY05_첨성대고분.png",
+    "width": 1400,
+    "height": 788,
+    "smallWidth": 720
+  }
+]

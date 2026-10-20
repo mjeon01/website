@@ -1,202 +1,151 @@
-import React, { useState } from 'react';
-import { ExternalLink, Menu, X, Globe, Phone } from 'lucide-react';
-import { COMPANY_INFO, MULTI_LANG } from '../data/content';
+import { useEffect, useRef, useState } from "react";
+import {
+  ArrowUpRight,
+  ChevronDown,
+  Globe2,
+  Menu,
+  ShoppingBag,
+  X,
+} from "lucide-react";
+import { COMPANY_INFO } from "../data/content";
+import { languagePath, languages, type Locale } from "../data/routes";
+import { translations } from "../data/translations";
 
-interface NavbarProps {
-  currentTab: string;
-  setCurrentTab: (tab: string) => void;
-  lang: 'ko' | 'en' | 'ja' | 'zh';
-  setLang: (lang: 'ko' | 'en' | 'ja' | 'zh') => void;
-  onOpenInquiry: (defaultType?: string) => void;
-}
-
-export const Navbar: React.FC<NavbarProps> = ({
+export function Navbar({
   currentTab,
-  setCurrentTab,
-  lang,
-  setLang,
-  onOpenInquiry,
-}) => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [langMenuOpen, setLangMenuOpen] = useState(false);
-
-  const t = MULTI_LANG[lang];
-
-  const navLinks = [
-    { id: 'home', label: t.nav.home },
-    { id: 'about', label: t.nav.about },
-    { id: 'work', label: t.nav.work },
-    { id: 'projects', label: t.nav.projects },
-    { id: 'shop', label: t.nav.shop },
-    { id: 'contact', label: t.nav.contact },
-  ];
-
-  const handleNavClick = (id: string) => {
-    setCurrentTab(id);
-    setMobileMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
+  locale = "ko",
+}: {
+  currentTab: string;
+  locale?: Locale;
+}) {
+  const [open, setOpen] = useState(false);
+  const languageMenu = useRef<HTMLDetailsElement>(null);
+  const t = locale === "ko" ? null : translations[locale];
+  const links = t
+    ? [["about", `/${locale}/`, t.about]]
+    : [
+        ["about", "/about/", "성림소개"],
+        ["work", "/work/", "사업분야"],
+        ["projects", "/projects/", "프로젝트"],
+        ["contact", "/contact/", "소식·문의"],
+      ];
+  useEffect(() => {
+    const close = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      if (languageMenu.current?.open) {
+        languageMenu.current.open = false;
+        languageMenu.current.querySelector("summary")?.focus();
+      }
+      if (open) {
+        setOpen(false);
+        document.getElementById("menu-toggle")?.focus();
+      }
+    };
+    const outside = (event: PointerEvent) => {
+      if (
+        languageMenu.current &&
+        !languageMenu.current.contains(event.target as Node)
+      )
+        languageMenu.current.open = false;
+    };
+    window.addEventListener("keydown", close);
+    window.addEventListener("pointerdown", outside);
+    return () => {
+      window.removeEventListener("keydown", close);
+      window.removeEventListener("pointerdown", outside);
+    };
+  }, [open]);
   return (
-    <header className="sticky top-0 z-50 bg-[#FBF9F5]/90 backdrop-blur-md border-b border-[#2D5A4C]/10 transition-all">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-8 h-20">
-          {/* Zone 1: Brand Wordmark (Single text element wordmark) */}
-          <div className="flex items-center gap-3 shrink-0">
-            <button
-              onClick={() => handleNavClick('home')}
-              className="group text-left flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2D5A4C]"
-            >
-              {/* Traditional Noerok Seal Stamp Emblem */}
-              <div className="w-10 h-10 rounded-sm bg-[#2D5A4C] text-[#FBF9F5] flex items-center justify-center font-serif font-bold text-lg tracking-wider shadow-sm transition-transform group-hover:scale-105">
-                聖
-              </div>
-              <div>
-                <span className="block font-serif text-xl sm:text-2xl font-bold tracking-tight text-[#142E25] group-hover:text-[#2D5A4C] transition-colors whitespace-nowrap">
-                  성림조형원
-                </span>
-                <span className="block text-[10px] tracking-widest text-[#5C6B64] uppercase font-sans">
-                  Social Cooperative
-                </span>
-              </div>
-            </button>
-          </div>
-
-          {/* Zone 2: 4–5 concise single-line text links */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-[#4A5550]">
-            {navLinks.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => handleNavClick(item.id)}
-                className={`relative py-1 tracking-wider transition-colors whitespace-nowrap shrink-0 hover:text-[#142E25] ${
-                  currentTab === item.id
-                    ? 'text-[#2D5A4C] font-semibold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#2D5A4C]'
-                    : 'text-[#4A5550]'
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
-          </nav>
-
-          {/* Zone 3: 1 primary action + Language switch */}
-          <div className="hidden md:flex items-center gap-4 shrink-0">
-            {/* Language dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => setLangMenuOpen(!langMenuOpen)}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-[#4A5550] hover:text-[#142E25] rounded transition-colors"
-                title="Change Language"
-              >
-                <Globe className="w-3.5 h-3.5" />
-                <span className="uppercase font-semibold tracking-wider">{lang}</span>
-              </button>
-
-              {langMenuOpen && (
-                <div className="absolute right-0 mt-2 w-28 bg-[#FFFFFF] rounded-md shadow-lg border border-[#E5E0D5] py-1 z-50">
-                  <button
-                    onClick={() => { setLang('ko'); setLangMenuOpen(false); }}
-                    className={`w-full text-left px-3 py-1.5 text-xs transition-colors ${lang === 'ko' ? 'bg-[#EAF2EE] text-[#2D5A4C] font-semibold' : 'text-[#333] hover:bg-stone-50'}`}
-                  >
-                    한국어 (KO)
-                  </button>
-                  <button
-                    onClick={() => { setLang('en'); setLangMenuOpen(false); }}
-                    className={`w-full text-left px-3 py-1.5 text-xs transition-colors ${lang === 'en' ? 'bg-[#EAF2EE] text-[#2D5A4C] font-semibold' : 'text-[#333] hover:bg-stone-50'}`}
-                  >
-                    English (EN)
-                  </button>
-                  <button
-                    onClick={() => { setLang('ja'); setLangMenuOpen(false); }}
-                    className={`w-full text-left px-3 py-1.5 text-xs transition-colors ${lang === 'ja' ? 'bg-[#EAF2EE] text-[#2D5A4C] font-semibold' : 'text-[#333] hover:bg-stone-50'}`}
-                  >
-                    日本語 (JA)
-                  </button>
-                  <button
-                    onClick={() => { setLang('zh'); setLangMenuOpen(false); }}
-                    className={`w-full text-left px-3 py-1.5 text-xs transition-colors ${lang === 'zh' ? 'bg-[#EAF2EE] text-[#2D5A4C] font-semibold' : 'text-[#333] hover:bg-stone-50'}`}
-                  >
-                    中文 (ZH)
-                  </button>
-                </div>
-              )}
-            </div>
-
-            {/* Quick Phone Call */}
+    <header
+      className={`site-header${locale === "en" ? " english-header" : ""}`}
+    >
+      <div className="header-inner">
+        <a href={locale === "ko" ? "/" : `/${locale}/`} className="brand">
+          <strong>{t?.brand || "성림조형원"}</strong>
+          <span>{t?.cooperative || "사회적협동조합"}</span>
+        </a>
+        <nav className="desktop-nav" aria-label={t?.nav || "주 메뉴"}>
+          {links.map(([id, href, label]) => (
             <a
-              href={`tel:${COMPANY_INFO.phone}`}
-              className="flex items-center gap-1.5 text-xs text-[#5C6B64] hover:text-[#142E25] tracking-wider transition-colors"
+              key={id}
+              href={href}
+              aria-current={currentTab === id ? "page" : undefined}
             >
-              <Phone className="w-3.5 h-3.5" />
-              <span>{COMPANY_INFO.phone}</span>
+              {label}
             </a>
-
-            {/* Primary Action Button: 온라인 구매 (Naver SmartStore) */}
-            <a
-              href={COMPANY_INFO.smartstoreUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold tracking-wider text-white bg-[#142E25] hover:bg-[#2D5A4C] rounded-sm transition-all shadow-sm whitespace-nowrap shrink-0"
-            >
-              <span>{t.primaryCta}</span>
-              <ExternalLink className="w-3.5 h-3.5 opacity-80" />
-            </a>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="flex md:hidden items-center gap-2">
-            <button
-              onClick={() => setLang(lang === 'ko' ? 'en' : 'ko')}
-              className="px-2 py-1 text-xs border border-[#2D5A4C]/20 rounded text-[#2D5A4C] font-semibold"
-            >
-              {lang.toUpperCase()}
-            </button>
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-[#142E25] hover:text-[#2D5A4C] focus:outline-none"
-              aria-label="Toggle navigation menu"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
+          ))}
+        </nav>
+        <div className="header-actions">
+          <a
+            className="header-shop"
+            href={languagePath(locale, "shop")}
+            aria-current={currentTab === "shop" ? "page" : undefined}
+          >
+            <ShoppingBag size={17} aria-hidden="true" />
+            {t?.shop || "조각상점"}
+            <ArrowUpRight size={16} aria-hidden="true" />
+          </a>
+          <details className="language-menu" ref={languageMenu}>
+            <summary aria-label={t?.languages || "언어 선택"}>
+              <Globe2 size={17} aria-hidden="true" />
+              <span>{{ ko: "KO", en: "EN", ja: "JA", zh: "ZH" }[locale]}</span>
+              <ChevronDown size={12} aria-hidden="true" />
+            </summary>
+            <nav aria-label={t?.languages || "언어 선택"}>
+              {languages.map((language) => (
+                <a
+                  href={languagePath(language.id, currentTab)}
+                  hrefLang={language.lang}
+                  lang={language.lang}
+                  key={language.id}
+                  aria-current={language.id === locale ? "true" : undefined}
+                >
+                  {language.label}
+                </a>
+              ))}
+            </nav>
+          </details>
+          <button
+            id="menu-toggle"
+            className="menu-toggle"
+            aria-label={
+              open ? t?.menuClose || "메뉴 닫기" : t?.menuOpen || "메뉴 열기"
+            }
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X /> : <Menu />}
+          </button>
         </div>
       </div>
-
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-[#FBF9F5] border-b border-[#2D5A4C]/10 px-4 pt-2 pb-6 space-y-3">
-          {navLinks.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => handleNavClick(item.id)}
-              className={`block w-full text-left py-2 text-base font-medium tracking-wide ${
-                currentTab === item.id ? 'text-[#2D5A4C] font-bold' : 'text-[#4A5550]'
-              }`}
-            >
-              {item.label}
-            </button>
-          ))}
-          <div className="pt-4 border-t border-[#2D5A4C]/10 flex flex-col gap-2">
+      {open && (
+        <nav
+          id="mobile-nav"
+          className="mobile-nav"
+          aria-label={t?.nav || "모바일 메뉴"}
+        >
+          {links.map(([id, href, label]) => (
             <a
-              href={COMPANY_INFO.smartstoreUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full text-center py-2.5 bg-[#142E25] text-white text-sm font-semibold rounded-sm"
+              key={id}
+              href={href}
+              aria-current={currentTab === id ? "page" : undefined}
             >
-              {t.primaryCta} (스마트스토어)
+              {label}
+              <ArrowUpRight size={19} aria-hidden="true" />
             </a>
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenInquiry();
-              }}
-              className="w-full text-center py-2.5 border border-[#2D5A4C] text-[#2D5A4C] text-sm font-semibold rounded-sm"
-            >
-              기획·제작 문의하기
-            </button>
-          </div>
-        </div>
+          ))}
+          <a
+            href={COMPANY_INFO.smartstoreUrl}
+            className="mobile-store"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {t?.store || "네이버 스마트스토어"}
+            <ArrowUpRight size={19} aria-hidden="true" />
+          </a>
+        </nav>
       )}
     </header>
   );
-};
+}

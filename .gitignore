@@ -6,3 +6,7 @@ coverage/
 *.log
 .env*
 !.env.example
+.local-review/
+기획안/
+.openai/
+scripts/prepare-photos.py
