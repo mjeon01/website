@@ -1,0 +1,6 @@
+{
+  "name": "성림조형원 사회적협동조합",
+  "description": "국가유산을 다루던 사람들이, 기획하고 만들고 운영합니다. 국가유산과 전통예술만 다루는 경주의 사회적협동조합 성림조형원 공식 웹사이트.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
